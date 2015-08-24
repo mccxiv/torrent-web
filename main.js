@@ -16,6 +16,7 @@ app.use(express.static('public'));
 
 io.on('connection', function (socket) {
 	console.log('New socket connection.');
+	if (client && client.files.length) socket.emit('torrent', simplifyFilesArray(client.files));
 	socket.on('add-torrent', addTorrent);
 	socket.on('remove-torrent', removeTorrent);
 });
