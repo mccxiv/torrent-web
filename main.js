@@ -1,4 +1,3 @@
-var WebTorrent = require('webtorrent');
 var torrentStream = require('torrent-stream');
 var express = require('express');
 var request = require('request').defaults({encoding: null});
@@ -65,10 +64,3 @@ function simplifyFilesArray(files) {
 		};
 	});
 }
-
-
-
-
-//var magnetUri = 'http://bt.ocremix.org/torrents/sonic2project_-_Hedgehog_Heaven.torrent';
-//var magnetUri = 'http://bt.ocremix.org/torrents/dkcproject-Kong_in_Concert_CD_Album.torrent';
-
