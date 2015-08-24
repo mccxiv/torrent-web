@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+        <a href="torrent/0">Download first file in torrent</a>
+
+        <script src="socket.io/socket.io.js"></script>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script>
+            var socket = io();
+
+            socket.emit('add-torrent', 'http://bt.ocremix.org/torrents/dkcproject-Kong_in_Concert_CD_Album.torrent');
+            socket.on('torrent', function(data) {
+                console.log(data);
+            });
+        </script>
+
+    </body>
+</html>
