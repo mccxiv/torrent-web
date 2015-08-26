@@ -35,10 +35,12 @@ app.get('/torrent/:index', function(req, res) {
 
 function addTorrent(url) {
 	removeTorrent();
-	request.get(url, function(err, res, body) {
-		client = torrentStream(body, {storage: mem});
-		client.ready(torrentReady);
-	});
+	if (url.indexOf('magnet:') === 0) createTorrentEngine(url);
+	else {
+		request.get(url, function(err, res, body) {
+			createTorrentEngine(body);
+		});
+	}
 }
 
 function removeTorrent() {
@@ -53,6 +55,11 @@ function removeTorrent() {
 //===============================
 // Helper functions
 //===============================
+
+function createTorrentEngine(torrent) {
+	client = torrentStream(torrent, {storage: mem});
+	client.ready(torrentReady);
+}
 
 function torrentReady() {
 	console.log('Client loaded:', client.infoHash);
