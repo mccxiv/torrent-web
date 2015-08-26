@@ -16,7 +16,7 @@ app.use(express.static('public'));
 
 io.on('connection', function (socket) {
 	console.log('New socket connection.');
-	if (client && client.files.length) socket.emit('torrent', simplifyFilesArray(client.files));
+	if (client && client.files.length) socket.emit('torrent', torrentRepresentation());
 	socket.on('add-torrent', addTorrent);
 	socket.on('remove-torrent', removeTorrent);
 });
@@ -25,6 +25,7 @@ app.get('/torrent/:index', function(req, res) {
 	console.log('Torrent file request.');
 	var file = client.files[req.params.index];
 	var stream = file.createReadStream();
+	res.set('Content-Length', file.length);
 	stream.pipe(res);
 });
 
@@ -42,7 +43,9 @@ function addTorrent(url) {
 
 function removeTorrent() {
 	if (client) {
+		console.log('Destroying client.');
 		client.destroy();
+		client = null;
 		io.emit('torrent-removed');
 	}
 }
@@ -53,7 +56,7 @@ function removeTorrent() {
 
 function torrentReady() {
 	console.log('Client loaded:', client.infoHash);
-	io.emit('torrent', simplifyFilesArray(client.files));
+	io.emit('torrent', torrentRepresentation());
 }
 
 function simplifyFilesArray(files) {
@@ -64,4 +67,12 @@ function simplifyFilesArray(files) {
 			length: file.length
 		};
 	});
+}
+
+function torrentRepresentation() {
+	return {
+		name: client.name,
+		infoHash: client.infoHash,
+		files: simplifyFilesArray(client.files)
+	};
 }

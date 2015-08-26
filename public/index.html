@@ -1,22 +1,250 @@
 <!doctype html>
-<html>
+<html ng-app="torrents-app">
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <style>
+
+            *.ng-enter, *.ng-leave {
+                transition: 300ms all ease-out;
+            }
+
+            .add-page.ng-enter .torrent-input-box {
+                transform: translate3d(0, 100%, 0);
+                opacity: 0;
+            }
+
+            .add-page.ng-enter.ng-enter-active .torrent-input-box {
+                transform: none;
+                opacity: 1;
+            }
+
+            .add-page.ng-leave {
+                opacity: 1;
+            }
+
+            .add-page.ng-leave.ng-leave-active {
+                opacity: 0;
+                margin-top: -100px;
+            }
+
+            .loading-page.ng-enter {
+                opacity: 0;
+            }
+
+            .loading-page.ng-enter.ng-enter-active {
+                opacity: 1;
+            }
+
+            .loading-page.ng-leave {
+                opacity: 1;
+            }
+
+            .loading-page.ng-leave.ng-leave-active {
+                opacity: 0;
+            }
+
+            .back-button.ng-enter, .back-button.ng-leave.ng-leave-active {
+                opacity: 0;
+                transform: scale(5, 5);
+            }
+
+            .back-button.ng-leave, .back-button.ng-enter.ng-enter-active  {
+                opacity: 1;
+                transform: none;
+            }
+
+
+            .torrents-page.ng-enter,
+            .torrents-page.ng-leave.ng-leave-active {
+                opacity: 0;
+            }
+
+            .torrents-page.ng-leave,
+            .torrents-page.ng-enter.ng-enter-active {
+                opacity: 1;
+            }
+
+            .torrent.ng-enter {
+                opacity: 0;
+                margin-left: 100px;
+            }
+
+            .torrent.ng-enter.ng-enter-active {
+                opacity: 1;
+                margin-left: 0;
+            }
+
+            /*.torrent.ng-enter-stagger {
+                -webkit-transition-delay: 0.2s;
+                transition-delay: 0.2s;
+
+                /!* in case the stagger doesn't work then these two values
+                 must be set to 0 to avoid an accidental CSS inheritance *!/
+                -webkit-transition-duration: 0s;
+                transition-duration: 0s;
+            }*/
+
+        </style>
+
+        <style>
+            html, body {
+                overflow: hidden;
+            }
+
+            * {
+                transition: all ease-out 80ms;
+            }
+
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+            md-content {
+                overflow: initial;
+            }
+
+            .add-page {
+                width: 400px;
+                height: 100vh;
+            }
+
+            .add-page .torrent-input-box {
+                width: 500px;
+            }
+
+            .torrents-page {
+                width: 800px;
+                padding: 100px 0;
+            }
+
+            .torrent {
+                opacity: 0.5;
+                padding: 0px 0;
+                line-height: 48px;
+                position: relative;
+                width: 700px;
+            }
+
+            .torrent .open-button {
+                left: -55px;
+                position: absolute;
+                opacity: 0;
+            }
+
+            .torrent:hover .open-button {
+                opacity: 1;
+            }
+
+            .torrent:hover {
+                opacity: 1;
+            }
+
+            .filename {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .back-button {
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                z-index: 3;
+            }
+
+            .panels > * {
+                width: 100%;
+                height: 100vh;
+                overflow: auto;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+        </style>
     </head>
-    <body>
-        <a href="torrent/0">Download first file in torrent</a>
+    <body ng-controller="main">
+
+        <div class="panels" ng-switch on="currentPage()">
+            <md-content ng-switch-when="add-page" class="add-page" layout="row" layout-align="center center">
+                <form ng-submit="add()" class="torrent-input-box">
+                    <md-input-container>
+                        <label>Torrent or Magnet link</label>
+                        <input type="text" ng-model="m.url">
+                    </md-input-container>
+                </form>
+            </md-content>
+
+            <md-content ng-switch-when="loading-page" class="loading-page" layout="row" layout-align="center center" flex>
+                <md-progress-circular md-diameter="20" md-mode="indeterminate"></md-progress-circular>
+                <span>Fetching Torrent Metadata...</span>
+            </md-content>
+
+            <md-content ng-switch-when="torrents-page" class="torrents-page" layout="column" layout-align="start center">
+                <div class="torrent" ng-repeat="file in m.torrent.files" layout="row">
+                    <md-button ng-href="torrent/{{$index}}" target="_blank" class="md-icon-button open-button" aria-label="Open in browser">
+                        <md-icon class="material-icons">open_in_new</md-icon>
+                    </md-button>
+                    <a flex class="filename" ng-href="torrent/{{$index}}" download="{{file.name}}">{{file.name}}</a>
+                </div>
+            </md-content>
+        </div>
+
+        <md-button class="md-icon-button back-button" aria-label="Cancel" ng-click="back();" ng-if="m.torrent || m.submitting">
+            <md-tooltip md-direction="right">
+                Go Back. Stops torrent
+            </md-tooltip>
+            <md-icon class="material-icons">keyboard_backspace</md-icon>
+        </md-button>
+
 
         <script src="socket.io/socket.io.js"></script>
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
         <script src="bower_components/angular-material/angular-material.min.js"></script>
         <script>
             var socket = io();
 
-            socket.emit('add-torrent', 'http://bt.ocremix.org/torrents/dkcproject-Kong_in_Concert_CD_Album.torrent');
-            socket.on('torrent', function(data) {
-                console.log(data);
+            angular.module('torrents-app', ['ngMaterial', 'ngAnimate']);
+
+            angular.module('torrents-app').controller('main', function($scope) {
+                $scope.m = {
+                    url: '',
+                    torrent: null,
+                    submitting: null
+                };
+
+                $scope.add = function() {
+                    console.log('submitting');
+                    $scope.m.submitting = true;
+                    socket.emit('add-torrent', $scope.m.url);
+                };
+
+                $scope.back = function() {
+                    socket.emit('remove-torrent');
+                    $scope.m.torrent = null;
+                    $scope.m.submitting = null;
+                };
+
+                $scope.currentPage = function() {
+                    if ($scope.m.torrent) return 'torrents-page';
+                    if ($scope.m.submitting) return 'loading-page';
+                    return 'add-page';
+                };
+
+                socket.on('torrent', function(torrent) {
+                    console.log(torrent);
+                    $scope.m.url = '';
+                    $scope.m.torrent = torrent;
+                    $scope.m.submitting = false;
+                    $scope.$apply();
+                });
             });
         </script>
 
