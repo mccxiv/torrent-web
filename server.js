@@ -7,7 +7,7 @@ var io = require('socket.io')(server);
 var mem = require('torrent-memory-storage');
 var client;
 
-server.listen(80);
+server.listen(process.env.PORT || 80);
 app.use(express.static('public'));
 
 //===============================
