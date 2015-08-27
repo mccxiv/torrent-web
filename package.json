@@ -1,8 +1,11 @@
 {
   "name": "torrent-web-poc",
   "version": "0.0.0",
-  "main": "main.js",
+  "main": "server.js",
   "description": "",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "express": "^4.13.3",
     "request": "^2.61.0",
