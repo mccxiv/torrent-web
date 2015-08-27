@@ -57,12 +57,19 @@ function removeTorrent() {
 //===============================
 
 function createTorrentEngine(torrent) {
-	client = torrentStream(torrent, {storage: mem});
-	client.ready(torrentReady);
+	try {
+		client = torrentStream(torrent, {storage: mem});
+		client.ready(torrentReady);
+	}
+
+	catch(e) {
+		console.log('Error creating torrent', e);
+	}
+
 }
 
 function torrentReady() {
-	console.log('Client loaded:', client.infoHash);
+	console.log('Client loaded:', client);
 	io.emit('torrent', torrentRepresentation());
 }
 
@@ -78,7 +85,8 @@ function simplifyFilesArray(files) {
 
 function torrentRepresentation() {
 	return {
-		name: client.name,
+		name: client.torrent.name,
+		comment: client.torrent.comment,
 		infoHash: client.infoHash,
 		files: simplifyFilesArray(client.files)
 	};
