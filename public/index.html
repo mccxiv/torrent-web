@@ -89,11 +89,15 @@
 
             .add-page .torrent-input-box {
                 width: 500px;
+                height: 80px;
             }
 
             .torrents-page {
-                width: 800px;
-                padding: 100px 0;
+                padding: 35px 0;
+            }
+
+            .torrents-page h1 {
+                margin: 40px;
             }
 
             .torrent {
@@ -160,6 +164,7 @@
             </md-content>
 
             <md-content ng-switch-when="torrents-page" class="torrents-page" layout="column" layout-align="start center">
+                <h1 class="md-display-1">{{m.torrent.name}}</h1>
                 <div class="torrent" ng-repeat="file in m.torrent.files" layout="row">
                     <md-button ng-href="torrent/{{$index}}" target="_blank" class="md-icon-button open-button" aria-label="Open in browser">
                         <md-icon class="material-icons">open_in_new</md-icon>
