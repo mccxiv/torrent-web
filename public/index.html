@@ -7,8 +7,13 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <style>
 
+            body {
+                background-color: black;
+                transition: 1000ms background-color ease-out;
+            }
+
             *.ng-enter, *.ng-leave {
-                transition: 300ms all ease-out;
+                transition: 500ms all ease-out;
             }
 
             .add-page.ng-enter .torrent-input-box {
@@ -80,6 +85,7 @@
 
             md-content {
                 overflow: initial;
+                background-color: transparent;
             }
 
             .add-page {
@@ -90,6 +96,12 @@
             .add-page .torrent-input-box {
                 width: 500px;
                 height: 80px;
+            }
+
+            .add-page .torrent-input-box label,
+            .add-page .torrent-input-box input {
+                text-shadow: none;
+                color: white;
             }
 
             .torrents-page {
@@ -146,7 +158,7 @@
 
         </style>
     </head>
-    <body ng-controller="main">
+    <body ng-controller="main" ng-style="getBgColorStyle()" ng-cloak>
 
         <div class="panels" ng-switch on="currentPage()">
             <md-content ng-switch-when="add-page" class="add-page" layout="row" layout-align="center center">
@@ -194,14 +206,17 @@
 
             angular.module('torrents-app').config(function($mdThemingProvider) {
                 $mdThemingProvider.theme('default')
-                    .primaryPalette('light-blue');
+                    .primaryPalette('pink')
+                    .accentPalette('orange')
+                    .dark();
             });
 
             angular.module('torrents-app').controller('main', function($scope) {
                 $scope.m = {
                     url: '',
                     torrent: null,
-                    submitting: null
+                    submitting: null,
+                    bgColor: 'white'
                 };
 
                 $scope.add = function() {
@@ -222,8 +237,17 @@
                     return 'add-page';
                 };
 
+                $scope.getBgColorStyle = function() {
+                    var color;
+                    switch($scope.currentPage()) {
+                        case 'add-page': color = '#212121'; break;
+                        case 'loading-page': color = '#212121'; break;
+                        case 'torrents-page': color = '#455A64'; break;
+                    }
+                    return {'background-color': color};
+                };
+
                 socket.on('torrent', function(torrent) {
-                    console.log(torrent);
                     $scope.m.url = '';
                     $scope.m.torrent = torrent;
                     $scope.m.submitting = false;
