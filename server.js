@@ -58,7 +58,8 @@ function removeTorrent() {
 
 function createTorrentEngine(torrent) {
 	try {
-		client = torrentStream(torrent, {storage: mem});
+		//client = torrentStream(torrent, {storage: mem});
+		client = torrentStream(torrent);
 		client.ready(torrentReady);
 	}
 
