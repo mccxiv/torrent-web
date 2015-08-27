@@ -64,6 +64,7 @@ function createTorrentEngine(torrent) {
 
 	catch(e) {
 		console.log('Error creating torrent', e);
+		io.emit('bad-torrent');
 	}
 
 }

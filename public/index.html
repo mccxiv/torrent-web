@@ -211,7 +211,7 @@
                     .dark();
             });
 
-            angular.module('torrents-app').controller('main', function($scope) {
+            angular.module('torrents-app').controller('main', function($scope, $mdToast) {
                 $scope.m = {
                     url: '',
                     torrent: null,
@@ -220,7 +220,6 @@
                 };
 
                 $scope.add = function() {
-                    console.log('submitting');
                     $scope.m.submitting = true;
                     socket.emit('add-torrent', $scope.m.url);
                 };
@@ -250,6 +249,12 @@
                 socket.on('torrent', function(torrent) {
                     $scope.m.url = '';
                     $scope.m.torrent = torrent;
+                    $scope.m.submitting = false;
+                    $scope.$apply();
+                });
+
+                socket.on('bad-torrent', function() {
+                    $mdToast.show($mdToast.simple().content('Invalid Torrent'));
                     $scope.m.submitting = false;
                     $scope.$apply();
                 });
