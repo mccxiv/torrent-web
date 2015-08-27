@@ -1,0 +1,7 @@
+{
+  "name": "Torrent Web",
+  "description": "Easily download torrents directly over http with this self-hosted app",
+  "repository": "https://github.com/mccxiv/torrent-web-poc",
+  "logo": "public/assets/torrent-web-logo.png",
+  "keywords": ["node", "express", "torrent"]
+}
