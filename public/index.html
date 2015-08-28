@@ -33,6 +33,7 @@
                         <md-icon class="material-icons">open_in_new</md-icon>
                     </md-button>
                     <a flex class="filename" ng-href="torrent/{{$index}}" download="{{file.name}}">{{file.name}}</a>
+                    <span>{{size(file.length, 1)}}</span>
                 </div>
             </md-content>
         </div>
