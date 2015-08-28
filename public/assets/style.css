@@ -1,0 +1,85 @@
+html, body {
+    overflow: hidden;
+}
+
+body {
+    background-color: black;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+md-content {
+    overflow: initial;
+    background-color: transparent;
+}
+
+.add-page {
+    width: 400px;
+    height: 100vh;
+}
+
+.add-page .torrent-input-box {
+    width: 500px;
+    height: 80px;
+}
+
+.add-page .torrent-input-box label,
+.add-page .torrent-input-box input {
+    text-shadow: none;
+    color: white;
+}
+
+.torrents-page {
+    padding: 35px 0;
+}
+
+.torrents-page h1 {
+    margin: 40px;
+}
+
+.torrent {
+    opacity: 0.5;
+    padding: 0px 0;
+    line-height: 48px;
+    position: relative;
+    width: 700px;
+}
+
+.torrent .open-button {
+    left: -55px;
+    position: absolute;
+    opacity: 0;
+}
+
+.torrent:hover .open-button {
+    opacity: 1;
+}
+
+.torrent:hover {
+    opacity: 1;
+}
+
+.filename {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+}
+
+.panels > * {
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

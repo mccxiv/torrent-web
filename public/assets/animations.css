@@ -1,0 +1,58 @@
+body {
+    transition: 1000ms background-color ease-out;
+}
+
+*.ng-enter, *.ng-leave {
+    transition: 500ms all ease-out;
+}
+
+.add-page.ng-enter .torrent-input-box {
+    transform: translate3d(0, 100%, 0);
+    opacity: 0;
+}
+
+.add-page.ng-enter.ng-enter-active .torrent-input-box {
+    transform: none;
+    opacity: 1;
+}
+
+.add-page.ng-leave {
+    opacity: 1;
+}
+
+.add-page.ng-leave.ng-leave-active {
+    opacity: 0;
+    margin-top: -100px;
+}
+
+.loading-page.ng-enter,
+.loading-page.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+.loading-page.ng-leave,
+.loading-page.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+.back-button.ng-enter,
+.back-button.ng-leave.ng-leave-active {
+    opacity: 0;
+    transform: scale(5, 5);
+}
+
+.back-button.ng-leave,
+.back-button.ng-enter.ng-enter-active  {
+    opacity: 1;
+    transform: none;
+}
+
+.torrents-page.ng-enter,
+.torrents-page.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+.torrents-page.ng-leave,
+.torrents-page.ng-enter.ng-enter-active {
+    opacity: 1;
+}
