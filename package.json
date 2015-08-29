@@ -2,7 +2,8 @@
   "name": "torrent-web-poc",
   "version": "0.0.0",
   "main": "server.js",
-  "description": "",
+  "description": "Easily download torrents directly over http",
+  "bin": "./server.js",
   "scripts": {
     "start": "node server.js",
     "postinstall": "bower install"
