@@ -4,7 +4,7 @@ var request = require('request').defaults({encoding: null});
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var mem = require('torrent-memory-storage');
+var mime = require('mime');
 var client;
 
 server.listen(process.env.PORT || 80);
@@ -21,17 +21,29 @@ io.on('connection', function (socket) {
 	socket.on('remove-torrent', removeTorrent);
 });
 
-app.get('/torrent/:index', function(req, res) {
+app.get('/torrent/:filename', function(req, res) {
 	console.log('Torrent file request.');
-	var file = client.files[req.params.index];
-	var stream = file.createReadStream();
-	res.set('Content-Length', file.length);
-	stream.pipe(res);
+	var file = findFile(req.params.filename);
+	if (file) {
+		var stream = file.createReadStream();
+		res.set('Content-Type', mime.lookup(file.name));
+		res.set('Content-Length', file.length);
+		stream.pipe(res);
+	}
+	else res.status(404).end();
 });
 
 //===============================
 // Main functions
 //===============================
+
+function findFile(filename) {
+	var f = null;
+	client.files.forEach(function(file) {
+		if (file.name === filename) f = file;
+	});
+	return f;
+}
 
 function addTorrent(url) {
 	removeTorrent();
