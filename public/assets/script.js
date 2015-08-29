@@ -9,7 +9,7 @@ angular.module('torrents-web-poc').config(function($mdThemingProvider) {
 		.dark();
 });
 
-angular.module('torrents-app').controller('main', function($scope, $mdToast) {
+angular.module('torrents-web-poc').controller('main', function($scope, $mdToast) {
 	$scope.m = {
 		url: '',
 		torrent: null,
