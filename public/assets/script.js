@@ -1,8 +1,8 @@
 var socket = io();
 
-angular.module('torrents-app', ['ngMaterial', 'ngAnimate']);
+angular.module('torrents-web-poc', ['ngMaterial', 'ngAnimate']);
 
-angular.module('torrents-app').config(function($mdThemingProvider) {
+angular.module('torrents-web-poc').config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 		.primaryPalette('pink')
 		.accentPalette('orange')
@@ -60,7 +60,7 @@ angular.module('torrents-app').controller('main', function($scope, $mdToast) {
 	});
 });
 
-function byteSize(bytes, precision){
+function byteSize(bytes, precision) {
 	var kilobyte = 1024,
 		megabyte = kilobyte * 1024,
 		gigabyte = megabyte * 1024,
@@ -84,4 +84,4 @@ function byteSize(bytes, precision){
 	} else {
 		return bytes + " B";
 	}
-};
+}
