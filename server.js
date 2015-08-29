@@ -4,8 +4,12 @@ var request = require('request').defaults({encoding: null});
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var os = require('os');
+var del = require('del');
 var mime = require('mime');
 var client;
+
+var DIR = os.tmpdir()+'/torrent-web-poc';
 
 server.listen(process.env.PORT || 80);
 app.use(express.static('public'));
@@ -60,18 +64,29 @@ function removeTorrent() {
 		console.log('Destroying client.');
 		client.destroy();
 		client = null;
+
 		io.emit('torrent-removed');
 	}
+	deleteFiles();
 }
 
 //===============================
 // Helper functions
 //===============================
 
+function deleteFiles() {
+	setTimeout(function() {
+		del.sync(DIR+'/**', {force: true});
+	}, 1000)
+}
+
 function createTorrentEngine(torrent) {
 	try {
-		//client = torrentStream(torrent, {storage: mem});
-		client = torrentStream(torrent);
+		client = torrentStream(torrent, {
+			uploads: 3,
+			connections: 30,
+			path: DIR
+		});
 		client.ready(torrentReady);
 	}
 
@@ -79,11 +94,9 @@ function createTorrentEngine(torrent) {
 		console.log('Error creating torrent', e);
 		io.emit('bad-torrent');
 	}
-
 }
 
 function torrentReady() {
-	console.log('Client loaded:', client);
 	io.emit('torrent', torrentRepresentation());
 }
 

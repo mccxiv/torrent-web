@@ -30,6 +30,9 @@
                 <h1 class="md-display-1">{{m.torrent.name}}</h1>
                 <div class="torrent" ng-repeat="file in m.torrent.files" layout="row">
                     <md-button ng-href="torrent/{{file.name}}" target="_blank" class="md-icon-button open-button" aria-label="Open in browser">
+                        <md-tooltip>
+                            Open in browser
+                        </md-tooltip>
                         <md-icon class="material-icons">open_in_new</md-icon>
                     </md-button>
                     <a flex class="filename" ng-href="torrent/{{file.name}}" download="{{file.name}}">{{file.name}}</a>
