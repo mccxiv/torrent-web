@@ -1,15 +1,15 @@
 var socket = io();
 
-angular.module('torrents-web-poc', ['ngMaterial', 'ngAnimate']);
+angular.module('torrent-web-poc', ['ngMaterial', 'ngAnimate']);
 
-angular.module('torrents-web-poc').config(function($mdThemingProvider) {
+angular.module('torrent-web-poc').config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 		.primaryPalette('pink')
 		.accentPalette('orange')
 		.dark();
 });
 
-angular.module('torrents-web-poc').controller('main', function($scope, $mdToast) {
+angular.module('torrent-web-poc').controller('main', function($scope, $mdToast) {
 	$scope.m = {
 		url: '',
 		torrent: null,

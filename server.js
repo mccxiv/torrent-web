@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var torrentStream = require('torrent-stream');
 var express = require('express');
 var request = require('request').defaults({encoding: null});
