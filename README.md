@@ -9,6 +9,7 @@ Download a torrent through a plain http request :grin:
 [![](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/mccxiv/torrent-web-poc)
 
 ## Get your own (Advanced)
-- Have [node.js](https://nodejs.org/) installed first.
+- Have [node.js](https://nodejs.org/) installed and port 80 available.
 - In a command prompt, type: ```npm install -g torrent-web-poc```
 - Once done, run it with: ```torrent-web-poc```
+- Visit [http://localhost/](http://localhost/) in your browser.
