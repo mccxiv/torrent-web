@@ -1,6 +1,6 @@
 {
   "name": "torrent-web-poc",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "server.js",
   "description": "Easily download torrents directly over http with a web UI",
   "bin": "./server.js",
@@ -8,6 +8,13 @@
     "start": "node server.js",
     "postinstall": "bower install"
   },
+  "author": {
+    "name": "Andrea Stella",
+    "email": "adr.stella@gmail.com",
+    "url": "http://mccxiv.me/"
+  },
+  "repository": "mccxiv/torrent-web-poc",
+  "preferGlobal": true,
   "dependencies": {
     "bower": "^1.5.2",
     "del": "^1.2.1",
