@@ -6,7 +6,7 @@
   "bin": "./server.js",
   "scripts": {
     "start": "node server.js",
-    "postinstall": "bower install"
+    "postinstall": "bower install --allow-root"
   },
   "author": {
     "name": "Andrea Stella",
