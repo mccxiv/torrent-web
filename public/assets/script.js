@@ -1,4 +1,4 @@
-var socket = io();
+
 
 angular.module('torrent-web-poc', ['ngMaterial', 'ngAnimate']);
 
@@ -10,6 +10,8 @@ angular.module('torrent-web-poc').config(function($mdThemingProvider) {
 });
 
 angular.module('torrent-web-poc').controller('main', function($scope, $mdToast) {
+	var socket = io();
+
 	$scope.m = {
 		url: '',
 		torrent: null,
@@ -17,13 +19,29 @@ angular.module('torrent-web-poc').controller('main', function($scope, $mdToast) 
 		bgColor: 'white'
 	};
 
+	checkHash();
+
+	function checkHash() {
+		var hash = window.location.hash.substring(1);
+		if (hash) {
+			setTimeout(function() {
+				if ($scope.m.torrent && $scope.m.torrent.url === hash) return;
+				if ($scope.m.torrent) $scope.back();
+				$scope.m.url = hash;
+				$scope.add();
+			}, 500);
+		}
+	}
+
 	$scope.add = function() {
 		$scope.m.submitting = true;
+		window.location.hash = '#'+$scope.m.url;
 		socket.emit('add-torrent', $scope.m.url);
 	};
 
 	$scope.back = function() {
 		socket.emit('remove-torrent');
+		window.location.hash = '';
 		$scope.m.torrent = null;
 		$scope.m.submitting = null;
 	};

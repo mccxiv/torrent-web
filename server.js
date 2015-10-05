@@ -9,12 +9,15 @@ var io = require('socket.io')(server);
 var os = require('os');
 var del = require('del');
 var mime = require('mime');
-var client;
+
+var client, url;
 
 var DIR = os.tmpdir()+'/torrent-web-poc';
+var PORT = process.env.PORT || 80;
 
-server.listen(process.env.PORT || 80);
+server.listen(PORT);
 app.use(express.static('public'));
+console.log('Torrent Web started on port '+PORT+' ...');
 
 //===============================
 // API
@@ -23,6 +26,7 @@ app.use(express.static('public'));
 io.on('connection', function (socket) {
 	console.log('New socket connection.');
 	if (client && client.files.length) socket.emit('torrent', torrentRepresentation());
+	else socket.emit('no-torrent');
 	socket.on('add-torrent', addTorrent);
 	socket.on('remove-torrent', removeTorrent);
 });
@@ -51,8 +55,9 @@ function findFile(filename) {
 	return f;
 }
 
-function addTorrent(url) {
+function addTorrent(incoming) {
 	removeTorrent();
+	url = incoming;
 	if (url.indexOf('magnet:') === 0) createTorrentEngine(url);
 	else {
 		request.get(url, function(err, res, body) {
@@ -114,6 +119,7 @@ function simplifyFilesArray(files) {
 
 function torrentRepresentation() {
 	return {
+		url: url,
 		name: client.torrent.name,
 		comment: client.torrent.comment,
 		infoHash: client.infoHash,
