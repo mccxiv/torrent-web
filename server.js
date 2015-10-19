@@ -13,7 +13,7 @@ var mime = require('mime');
 var client, url;
 
 var DIR = os.tmpdir()+'/torrent-web-poc';
-var PORT = process.env.PORT || 80;
+var PORT = parseArg('--port') || parseArg('-p') || process.env.PORT || 80;
 
 server.listen(PORT);
 app.use(express.static('public'));
@@ -80,6 +80,20 @@ function removeTorrent() {
 //===============================
 // Helper functions
 //===============================
+
+/**
+ * Checks process.argv for one beginning with arg+'='
+ * @param {string} arg
+ */
+function parseArg(arg) {
+	for (var i = 0; i < process.argv.length; i++) {
+		var val = process.argv[i];
+		if (startsWith(val, arg+'=')) return val.substring(arg.length+1);
+	}
+	function startsWith(string, beginsWith) {
+		return string.indexOf(beginsWith) === 0;
+	}
+}
 
 function deleteFiles() {
 	setTimeout(function() {

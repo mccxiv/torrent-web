@@ -1,19 +1,26 @@
 {
-  "name": "torrent-web-poc",
-  "version": "0.0.4",
+  "name": "torrent-web",
+  "version": "1.0.0",
   "main": "server.js",
-  "description": "Easily download torrents directly over http with a web UI",
+  "description": "Stream and download torrents directly over http with a web UI",
   "bin": "./server.js",
   "scripts": {
     "start": "node server.js",
     "postinstall": "bower install --allow-root"
   },
+  "keywords": [
+    "torrent",
+    "bittorrent",
+    "stream torrent",
+    "torrent proxy",
+    "direct download"
+  ],
   "author": {
     "name": "Andrea Stella",
     "email": "adr.stella@gmail.com",
     "url": "http://mccxiv.me/"
   },
-  "repository": "mccxiv/torrent-web-poc",
+  "repository": "mccxiv/torrent-web",
   "preferGlobal": true,
   "dependencies": {
     "bower": "^1.5.2",
