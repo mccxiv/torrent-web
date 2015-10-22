@@ -2,6 +2,6 @@
   "name": "Torrent Web",
   "description": "Easily download torrents directly over http with this self-hosted app",
   "repository": "https://github.com/mccxiv/torrent-web",
-  "logo": "http://i.imgur.com/i90nqDw.png",
+  "logo": "http://i.imgur.com/fdzPLb2.png",
   "keywords": ["node", "torrent", "proxy"]
 }
