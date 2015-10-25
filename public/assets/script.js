@@ -29,6 +29,7 @@ angular.module('torrent-web-poc').controller('main', function($scope, $mdToast) 
 				if ($scope.m.torrent) $scope.back();
 				$scope.m.url = hash;
 				$scope.add();
+				$scope.$apply();
 			}, 500);
 		}
 	}
