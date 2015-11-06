@@ -16,7 +16,7 @@ var DIR = os.tmpdir()+'/torrent-web-poc';
 var PORT = parseArg('--port') || parseArg('-p') || process.env.PORT || 80;
 
 server.listen(PORT);
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 console.log('Torrent Web started on port '+PORT+' ...');
 
 //===============================
