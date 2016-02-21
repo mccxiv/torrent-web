@@ -1,6 +1,8 @@
 html, body {
     background: black;
+    background-attachment: fixed;
     height: unset;
+    min-height: 100vh;
 }
 
 a {

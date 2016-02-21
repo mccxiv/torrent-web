@@ -3,6 +3,9 @@ body {
 }
 
 *.ng-enter, *.ng-leave {
+    position: absolute;
+    top: 0;
+    left: 0;
     transition: 500ms all ease-out;
 }
 
