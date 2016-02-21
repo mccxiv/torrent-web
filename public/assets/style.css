@@ -1,9 +1,6 @@
 html, body {
-    overflow: hidden;
-}
-
-body {
-    background-color: black;
+    background: black;
+    height: unset;
 }
 
 a {
@@ -18,7 +15,6 @@ md-content {
 
 .add-page {
     width: 400px;
-    height: 100vh;
 }
 
 .add-page .torrent-input-box {
@@ -42,7 +38,7 @@ md-content {
 
 .torrent {
     opacity: 0.5;
-    padding: 0px 0;
+    padding: 0 0;
     line-height: 48px;
     position: relative;
     width: 700px;
@@ -77,9 +73,6 @@ md-content {
 
 .panels > * {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     overflow: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
