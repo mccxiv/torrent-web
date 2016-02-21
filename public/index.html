@@ -27,12 +27,16 @@
             </md-content>
 
             <md-content ng-switch-when="torrents-page" class="torrents-page" layout="column" layout-align="start center">
-                <h1 class="md-display-1">{{m.torrent.name}}</h1>
+                <h1 class="md-display-1">
+                    {{m.torrent.name}}
+                    <md-button ng-href="torrent" class="md-icon-button zip-download" aria-label="Download as zip">
+                        <md-tooltip>Download as Zip</md-tooltip>
+                        <md-icon class="material-icons">file_download</md-icon>
+                    </md-button>
+                </h1>
                 <div class="torrent" ng-repeat="file in m.torrent.files" layout="row">
                     <md-button ng-href="torrent/{{file.name}}" target="_blank" class="md-icon-button open-button" aria-label="Open in browser">
-                        <md-tooltip>
-                            Open in browser
-                        </md-tooltip>
+                        <md-tooltip>Open in browser</md-tooltip>
                         <md-icon class="material-icons">open_in_new</md-icon>
                     </md-button>
                     <a flex class="filename" ng-href="torrent/{{file.name}}" download="{{file.name}}">{{file.name}}</a>

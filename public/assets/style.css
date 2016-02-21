@@ -76,3 +76,7 @@ md-content {
     min-height: 100vh;
     overflow: auto;
 }
+
+.zip-download {
+    vertical-align: -13px;
+}

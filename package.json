@@ -24,6 +24,7 @@
   "preferGlobal": true,
   "license": "ISC",
   "dependencies": {
+    "archiver": "^0.21.0",
     "bower": "^1.5.2",
     "del": "^1.2.1",
     "express": "^4.13.3",

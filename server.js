@@ -9,6 +9,7 @@ var io = require('socket.io')(server);
 var os = require('os');
 var del = require('del');
 var mime = require('mime');
+var archiver = require('archiver');
 
 var client, url;
 
@@ -41,6 +42,18 @@ app.get('/torrent/:filename', function(req, res) {
 		stream.pipe(res);
 	}
 	else res.status(404).end();
+});
+
+app.get('/torrent/', function(req, res) {
+	var archive = archiver.create('zip', {});
+	var filename = client.torrent.name + '.zip';
+	res.set('Content-Type', 'application/zip');
+	res.set('Content-disposition', 'attachment; filename=' + filename);
+	archive.pipe(res);
+	client.files.forEach(function(file) {
+		archive.append(file.createReadStream(), {name: file.path});
+	});
+	archive.finalize();
 });
 
 //===============================
@@ -119,6 +132,7 @@ function createTorrentEngine(torrent) {
 
 function torrentReady() {
 	io.emit('torrent', torrentRepresentation());
+	console.log('client:', client);
 }
 
 function simplifyFilesArray(files) {
