@@ -1,12 +1,12 @@
 {
   "name": "torrent-web",
   "dependencies": {
-    "angular": "~1.4.4",
-    "angular-material": "~0.10.1",
-    "angular-animate": "~1.4.4"
+    "angular": "1.4.4",
+    "angular-material": "0.10.1",
+    "angular-animate": "1.4.4"
   },
+  "private": true,
   "resolutions": {
-    "angular": "1.4.9"
-  },
-  "private": true
+    "angular": "1.4.4"
+  }
 }
