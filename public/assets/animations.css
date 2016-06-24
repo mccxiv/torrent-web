@@ -2,7 +2,11 @@ body {
     transition: 1000ms background-color ease-out;
 }
 
-*.ng-enter, *.ng-leave {
+.torrent {
+    transition: 500ms all cubic-bezier(1,0,0,1);
+}
+
+*.ng-enter, *.ng-leave, {
     position: absolute;
     top: 0;
     left: 0;
