@@ -2,12 +2,15 @@
 <html ng-app="torrent-web-poc">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
         <title>Torrent Web, a proof of concept</title>
         <link rel="icon" type="image/png" href="assets/torrent-web-logo.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&subset=latin,cyrillic">
         <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
         <link rel="stylesheet" href="assets/animations.css">
         <link rel="stylesheet" href="assets/style.css">
+        <link rel="stylesheet" href="assets/material-table.css">
     </head>
     <body ng-controller="main" ng-style="getBgColorStyle()" ng-cloak>
 
@@ -34,13 +37,38 @@
                     </md-button>
                     {{m.torrent.name}}
                 </h1>
-                <div class="torrent" ng-repeat="file in m.torrent.files" layout="row">
-                    <md-button ng-href="torrent/{{file.name}}" target="_blank" class="md-icon-button open-button" aria-label="Open in browser">
-                        <md-tooltip>Open in browser</md-tooltip>
-                        <md-icon class="material-icons">open_in_new</md-icon>
-                    </md-button>
-                    <a flex class="filename" ng-href="torrent/{{file.name}}" download="{{file.name}}">{{file.name}}</a>
-                    <span>{{size(file.length, 1)}}</span>
+                <div class="table-responsive-vertical shadow-z-1">
+                <!-- Table starts here -->
+                <table id="table" class="table table-mc-light-blue">
+                    <thead>
+                        <tr>
+                            <th>Filename</th>
+                            <th>Size</th>
+                            <th>Download</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-title="Download all files as .zip">
+                              <a flex class="zip-download" ng-href="torrent/{{file.name}}" download="{{file.name}}" aria-label="Download as zip">Download all files as .zip</a>
+                            </td>
+                            <td colspan="2">
+                              <a flex class="zip-download" ng-href="torrent/{{file.name}}" download="{{file.name}}" aria-label="Download as zip">
+                                  <md-icon class="material-icons">file_download</md-icon>
+                              </a>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="file in m.torrent.files">
+                            <td data-title="Filename"><a flex ng-href="torrent/{{file.name}}" download="{{file.name}}">{{file.name}}</a></td>
+                            <td data-title="Size"><span>{{size(file.length, 1)}}</span></td>
+                            <td data-title="Download">
+                              <a flex ng-href="torrent/{{file.name}}" download="{{file.name}}">
+                                <md-icon class="material-icons">file_download</md-icon>
+                              </a>
+                            </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
             </md-content>
         </div>
