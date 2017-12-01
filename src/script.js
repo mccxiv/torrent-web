@@ -1,6 +1,12 @@
+import './style/animations.css'
+import './style/style.css'
+import 'angular-material/angular-material.min.css'
+import io from 'socket.io-client'
+import angular from 'angular'
+import ngAnimate from 'angular-animate'
+import ngMaterial from 'angular-material'
 
-
-angular.module('torrent-web-poc', ['ngMaterial', 'ngAnimate']);
+angular.module('torrent-web-poc', [ngMaterial, ngAnimate]);
 
 angular.module('torrent-web-poc').config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
