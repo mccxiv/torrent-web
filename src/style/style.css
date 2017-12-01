@@ -1,7 +1,5 @@
 html, body {
-    background: black;
     background-attachment: fixed;
-    height: unset;
     min-height: 100vh;
 }
 
@@ -22,6 +20,10 @@ md-content {
 .add-page .torrent-input-box {
     width: 500px;
     height: 80px;
+}
+
+.add-page .torrent-input-box md-input-container {
+  width: 100%;
 }
 
 .add-page .torrent-input-box label,
@@ -67,7 +69,7 @@ md-content {
 }
 
 .back-button {
-    position: absolute;
+    position: absolute !important;
     top: 20px;
     left: 20px;
     z-index: 3;
