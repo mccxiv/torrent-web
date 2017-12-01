@@ -5,8 +5,7 @@
   "description": "Stream and download torrents directly over http with a web UI",
   "bin": "./server.js",
   "scripts": {
-    "start": "node server.js",
-    "postinstall": "bower install --allow-root"
+    "start": "node server.js"
   },
   "keywords": [
     "torrent",
@@ -17,15 +16,16 @@
   ],
   "author": {
     "name": "Andrea Stella",
-    "email": "adr.stella@gmail.com",
-    "url": "http://mccxiv.me/"
+    "email": "adr.stella@gmail.com"
   },
   "repository": "mccxiv/torrent-web",
   "preferGlobal": true,
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.6.7",
+    "angular-animate": "^1.6.7",
+    "angular-material": "^1.1.5",
     "archiver": "^0.21.0",
-    "bower": "^1.5.2",
     "del": "^1.2.1",
     "express": "^4.13.3",
     "mime": "^1.3.4",
