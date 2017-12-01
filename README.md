@@ -22,4 +22,4 @@ Torrent Web is a self hosted server. It lets you direct download torrents with a
 Change the port with --port= or -p=  
 `torrent-web -p=8080`
 
-###### © 2015 Andrea Stella, ISC license.
+###### Â© Andrea Stella, ISC license.
