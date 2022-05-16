@@ -10,7 +10,7 @@ Torrent Web is a self hosted server. It lets you direct download torrents with a
 - Sign up for [Heroku](https://dashboard.heroku.com/), this gives you a free server.
 - Click the Deploy button below to load this app into your Heroku account.  
 
-[![](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/mccxiv/torrent-web)
+[![](https://www.herokucdn.com/deploy/button.png)](https://github.com/mccxiv/torrent-web)
 
 ## Get your own (Advanced)
 - Have [node.js](https://nodejs.org/) installed and port 80 available.
